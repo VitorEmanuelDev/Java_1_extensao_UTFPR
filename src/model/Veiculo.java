@@ -79,6 +79,4 @@ public abstract class Veiculo implements Calcular{
 	public abstract float calcVel(float velocMax);
 
 
-
-
 }

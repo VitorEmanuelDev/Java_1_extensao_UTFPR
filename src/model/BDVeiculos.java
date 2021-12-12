@@ -67,7 +67,7 @@ public class BDVeiculos {
 	}
 
 
-	protected static void cadastrarVeiculoPasseio() throws IOException, VeicExistException, VelocException {
+	public static void cadastrarVeiculoPasseio() throws IOException, VeicExistException, VelocException {
 		boolean placaExiste = cadastroPasseio();
 		if(placaExiste == false) {		
 			Veiculo novoVeiculoPasseio = new Passeio();
@@ -77,7 +77,7 @@ public class BDVeiculos {
 		}
 	}
 
-	protected static void cadastrarVeiculoCarga() throws IOException, VeicExistException, VelocException {
+	public static void cadastrarVeiculoCarga() throws IOException, VeicExistException, VelocException {
 		boolean placaExiste = cadastroCarga();
 		if(placaExiste == false) {		
 			Veiculo novoVeiculoCarga = new Carga();

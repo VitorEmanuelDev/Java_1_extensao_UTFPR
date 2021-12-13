@@ -23,11 +23,11 @@ public final class Carga extends Veiculo{
 		this.cargaMax = cargaMax;
 	}
 
-	public int getTera() {
+	public int getTara() {
 		return tara;
 	}
 
-	public final void setTera(int tera) {
+	public final void setTara(int tera) {
 		this.tara = tera;
 	}
 

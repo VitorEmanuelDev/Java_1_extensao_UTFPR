@@ -8,7 +8,6 @@ public class BDVeiculos {
 	
 	public static List<Passeio> veiculoPasseio = new ArrayList<Passeio>();
 	public static List<Carga> veiculoCarga = new ArrayList<Carga>();
-	public static Leitura leitura = new Leitura();
 	
 	public BDVeiculos() {}
 
@@ -28,47 +27,33 @@ public class BDVeiculos {
 		BDVeiculos.veiculoCarga = veiculoCarga;
 	}
 	
-	protected static void excluirVeiculosCargaPlaca() throws IOException {
-		System.out.println("Qual a placa do veiculo que deseja remover?");	
-		String placa = null;
-		placa = leitura.entDados(placa);
+	public static void excluirVeiculosCargaPlaca(String placa) throws IOException {
 		excluirPlacaCarga(veiculoCarga, placa);
 	}
 
-	protected static void excluirVeiculosPasseioPlaca() throws IOException {
-		System.out.println("Qual a placa do veiculo que deseja remover?");	
-		String placa = null;
-		placa = leitura.entDados(placa);
+	public static void excluirVeiculosPasseioPlaca(String placa) throws IOException {
 		excluirPlacaPasseio(veiculoPasseio, placa);
 	}
 
-	protected static void imprimirVeiculosCargaPlaca() throws IOException {
-		System.out.println("Qual placa esta procurando?");	
-		String placa = null;
-		placa = leitura.entDados(placa);
+	public static void imprimirVeiculosCargaPlaca(String placa) throws IOException {
 		imprimirPlacaCarga(veiculoCarga, placa);
 	}
 
-	protected static void imprimirVeiculosPasseioPlaca() throws IOException {
-		System.out.println("Qual placa esta procurando?");
-		String placa = null;
-		placa = leitura.entDados(placa);
+	public static void imprimirVeiculosPasseioPlaca(String placa) throws IOException {
 		imprimirPlacaPasseio(veiculoPasseio, placa);
 	}
 
-	protected static void imprimirVeiculosCarga() {
-		System.out.println("Lista de veículos de carga\n");
+	public static void imprimirVeiculosCarga() {
 		imprimirCarga(veiculoCarga);
 	}
 
-	protected static void imprimirVeiculosPasseio() {
-		System.out.println("Lista de veículos de passeio\n");
+	public static void imprimirVeiculosPasseio() {
 		imprimirPasseio(veiculoPasseio);
 	}
 
 
-	public static void cadastrarVeiculoPasseio() throws IOException, VeicExistException, VelocException {
-		boolean placaExiste = cadastroPasseio();
+	public static void cadastrarVeiculoPasseio(String placa,  String qtdPassageirosStr, String marca, String modelo, String cor, String qtdRodasStr, String velocMaxStr, String qtdPistoesStr, String potenciaStr) throws IOException, VeicExistException, VelocException {
+		boolean placaExiste = cadastroPasseio(placa, qtdPassageirosStr, marca, modelo, cor, qtdRodasStr, velocMaxStr, qtdPistoesStr, potenciaStr);
 		if(placaExiste == false) {		
 			Veiculo novoVeiculoPasseio = new Passeio();
 			veiculoPasseio.add((Passeio) novoVeiculoPasseio);
@@ -77,8 +62,8 @@ public class BDVeiculos {
 		}
 	}
 
-	public static void cadastrarVeiculoCarga() throws IOException, VeicExistException, VelocException {
-		boolean placaExiste = cadastroCarga();
+	public static void cadastrarVeiculoCarga(String placa, String taraStr, String cargaMaxStr, String marca, String modelo, String cor, String qtdRodasStr, String velocMaxStr, String qtdPistoesStr, String potenciaStr) throws IOException, VeicExistException, VelocException {
+		boolean placaExiste = cadastroCarga(placa, taraStr, cargaMaxStr, marca, modelo, cor, qtdRodasStr, velocMaxStr, qtdPistoesStr, potenciaStr);
 		if(placaExiste == false) {		
 			Veiculo novoVeiculoCarga = new Carga();
 			veiculoCarga.add((Carga) novoVeiculoCarga);
@@ -88,11 +73,8 @@ public class BDVeiculos {
 	}
 
 	@SuppressWarnings("resource")
-	private static boolean cadastroCarga() throws IOException, VeicExistException, VelocException {
+	private static boolean cadastroCarga(String placa, String taraStr, String cargaMaxStr, String marca, String modelo, String cor, String qtdRodasStr, String velocMaxStr, String qtdPistoesStr, String potenciaStr) throws IOException, VeicExistException, VelocException {
 		Carga novoVeiculoCarga;
-		System.out.println("Qual a placa do veiculo?");
-		String placa = null;
-		placa = leitura.entDados(placa);
 
 		boolean placaExiste = false;
 		for(int i = 0; i < veiculoCarga.size(); i++) {
@@ -106,44 +88,21 @@ public class BDVeiculos {
 			novoVeiculoCarga = new Carga();			
 		else
 			return true;
-
-		System.out.println("Qual a cor do veiculo?");
-		String cor = null;
-		cor = leitura.entDados(cor);
+		
+		int tara = Integer.parseInt(taraStr);
+		novoVeiculoCarga.setTara(tara);
+		int cargaMax = Integer.parseInt(cargaMaxStr);
+		novoVeiculoCarga.setCargaMax(cargaMax);
 		novoVeiculoCarga.setCor(cor);
-
-		System.out.println("Qual a marca do veiculo?");
-		String marca = null;
-		marca = leitura.entDados(marca);
 		novoVeiculoCarga.setMarca(marca);
-
-		System.out.println("Qual o modelo do veiculo?");
-		String modelo = null;
-		modelo = leitura.entDados(modelo);
 		novoVeiculoCarga.setModelo(modelo);
-
 		novoVeiculoCarga.setMotor(new Motor());
-		System.out.println("Qual a potencia do veiculo?");
-		String potenciaStr = null;
-		potenciaStr = leitura.entDados(potenciaStr);
 		int potencia = Integer.parseInt(potenciaStr);
 		novoVeiculoCarga.getMotor().setPotencia(potencia);
-
-		System.out.println("Quantos pistoes o veiculo tem?");
-		String qtdPistoesStr = null;
-		qtdPistoesStr = leitura.entDados(qtdPistoesStr);
 		int qtdPistoes = Integer.parseInt(qtdPistoesStr);
 		novoVeiculoCarga.getMotor().setQtdPist(qtdPistoes);
-
-		System.out.println("Qual a quantidade de rodas do veiculo?");
-		String qtdRodasStr = null;
-		qtdRodasStr = leitura.entDados(qtdRodasStr);
 		int qtdRodas = Integer.parseInt(qtdRodasStr);
 		novoVeiculoCarga.setQtdRodas(qtdRodas);
-
-		System.out.println("Qual a velocidade maxima do veiculo?");
-		String velocMaxStr = null;
-		velocMaxStr = leitura.entDados(velocMaxStr);
 		float velocMax = Float.parseFloat(velocMaxStr);
 		if(velocMax < 80 || velocMax > 110) {	
 			if (velocMax < 80)
@@ -156,43 +115,13 @@ public class BDVeiculos {
 
 		veiculoCarga.add(novoVeiculoCarga);
 		int soma = novoVeiculoCarga.calcular(veiculoCarga);
-		System.out.println("Soma dos atributos int " + soma);
-
-		System.out.println("Deseja cadastrar outro veiculo?");
-		System.out.println("1. Sim");
-		System.out.println("2. Nao");
-		String continuarStr = null;
-		continuarStr = leitura.entDados(continuarStr);
-		int continuar = Integer.parseInt(continuarStr);
-
-		if(continuar == 1) {
-			System.out.println("1. Passeio");
-			System.out.println("2. Carga");
-			String opcaoStr = null;
-			opcaoStr = leitura.entDados(opcaoStr);
-			int opcao = Integer.parseInt(opcaoStr);
-
-			switch (opcao) {
-			case 1:
-				cadastrarVeiculoPasseio();
-				break;
-			case 2:
-				cadastrarVeiculoCarga();
-				break;
-			default:
-				System.out.print("\nOpção Invalida!");
-				break;		
-			}
-		}
+		
 		return false;
 	}
 
-	private static boolean cadastroPasseio() throws IOException, VeicExistException, VelocException {
+	private static boolean cadastroPasseio(String placa, String qtdPassageirosStr, String marca, String modelo, String cor, String qtdRodasStr, String velocMaxStr, String qtdPistoesStr, String potenciaStr) throws IOException, VeicExistException, VelocException {
 
 		Passeio novoVeiculoPasseio;
-		System.out.println("Qual a placa do veiculo?");
-		String placa = null;
-		placa = leitura.entDados(placa);
 
 		boolean placaExiste = false;
 		for(int i = 0; i < veiculoPasseio.size(); i++) {
@@ -206,44 +135,15 @@ public class BDVeiculos {
 			novoVeiculoPasseio = new Passeio();
 		else
 			return true;
-
-		System.out.println("Qual a cor do veiculo?");
-		String cor = null;
-		cor = leitura.entDados(cor);
-		novoVeiculoPasseio.setCor(cor);
-
-		System.out.println("Qual a marca do veiculo?");
-		String marca = null;
-		marca = leitura.entDados(marca);
+		
+		novoVeiculoPasseio.setPlaca(placa);
+		int qtdPassageiros = Integer.parseInt(qtdPassageirosStr);
+		novoVeiculoPasseio.setQtdPassageiros(qtdPassageiros);
 		novoVeiculoPasseio.setMarca(marca);
-
-		System.out.println("Qual o modelo do veiculo?");
-		String modelo = null;
-		modelo = leitura.entDados(modelo);
 		novoVeiculoPasseio.setModelo(modelo);
-
-		novoVeiculoPasseio.setMotor(new Motor());
-		System.out.println("Qual a potencia do veiculo?");
-		String potenciaStr = null;
-		potenciaStr = leitura.entDados(potenciaStr);
-		int potencia = Integer.parseInt(potenciaStr);
-		novoVeiculoPasseio.getMotor().setPotencia(potencia);
-
-		System.out.println("Quantos pistoes o veiculo tem?");
-		String qtdPistoesStr = null;
-		qtdPistoesStr = leitura.entDados(qtdPistoesStr);
-		int qtdPistoes = Integer.parseInt(qtdPistoesStr);
-		novoVeiculoPasseio.getMotor().setQtdPist(qtdPistoes);
-
-		System.out.println("Qual a quantidade de rodas do veiculo?");
-		String qtdRodasStr = null;
-		qtdRodasStr = leitura.entDados(qtdRodasStr);
+		novoVeiculoPasseio.setCor(cor);
 		int qtdRodas = Integer.parseInt(qtdRodasStr);
 		novoVeiculoPasseio.setQtdRodas(qtdRodas);
-
-		System.out.println("Qual a velocidade maxima do veiculo?");
-		String velocMaxStr = null;
-		velocMaxStr = leitura.entDados(velocMaxStr);
 		float velocMax = Float.parseFloat(velocMaxStr);
 		if(velocMax < 80 || velocMax > 110) {	
 			if (velocMax < 80)
@@ -253,41 +153,19 @@ public class BDVeiculos {
 			throw new VelocException();
 		}
 		novoVeiculoPasseio.setVelocMax(velocMax);
+		novoVeiculoPasseio.setMotor(new Motor());
+		int qtdPistoes = Integer.parseInt(qtdPistoesStr);
+		novoVeiculoPasseio.getMotor().setQtdPist(qtdPistoes);
+		int potencia = Integer.parseInt(potenciaStr);
+		novoVeiculoPasseio.getMotor().setPotencia(potencia);
 
 		veiculoPasseio.add(novoVeiculoPasseio);
 		int soma = novoVeiculoPasseio.calcular(veiculoPasseio);
 
-		System.out.println("Soma dos atributos int " + soma);
-
-		System.out.println("Deseja cadastrar outro veiculo?");
-		System.out.println("1. Sim");
-		System.out.println("2. Nao");
-		String continuarStr = null;
-		continuarStr = leitura.entDados(continuarStr);
-		int continuar = Integer.parseInt(continuarStr);
-
-		if(continuar == 1) {
-			System.out.println("1. Passeio");
-			System.out.println("2. Carga");
-			String opcaoStr = null;
-			opcaoStr = leitura.entDados(opcaoStr);
-			int opcao = Integer.parseInt(opcaoStr);
-			switch (opcao) {
-			case 1:
-				cadastrarVeiculoPasseio();
-				break;
-			case 2:
-				cadastrarVeiculoCarga();
-				break;
-			default:
-				System.out.print("\nOpção Invalida!");
-				break;		
-			}
-		}
 		return false;
 	}
 	
-	public static void imprimirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
+	private static void imprimirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
 		boolean existe = false;
 		for(int z = 0; z < veiculoPasseio.size(); z++) {
 			if(veiculoPasseio.get(z) != null && veiculoPasseio.get(z).getPlaca().contains(placa)) {
@@ -309,7 +187,7 @@ public class BDVeiculos {
 
 	}
 
-	public static void imprimirPasseio(List<Passeio> veiculoPasseio) {
+	private static void imprimirPasseio(List<Passeio> veiculoPasseio) {
 		for(int z = 0; z < veiculoPasseio.size(); z++) {
 			System.out.println("Cor: " + veiculoPasseio.get(z).getCor());
 			System.out.println("Marca: " + veiculoPasseio.get(z).getMarca());
@@ -323,7 +201,7 @@ public class BDVeiculos {
 		}
 	}
 
-	public static void excluirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
+	private static void excluirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
 		boolean existe = false;
 		for(int z = 0; z < veiculoPasseio.size(); z++) {
 			if(veiculoPasseio.get(z) != null && veiculoPasseio.get(z).getPlaca().contains(placa)) {
@@ -337,7 +215,7 @@ public class BDVeiculos {
 	}
 	
 
-	public static void imprimirPlacaCarga(List<Carga> veiculoCarga, String placa) {
+	private static void imprimirPlacaCarga(List<Carga> veiculoCarga, String placa) {
 
 		boolean existe = false;
 		for(int z = 0; z < veiculoCarga.size(); z++) {
@@ -360,7 +238,7 @@ public class BDVeiculos {
 
 	}
 
-	public static void imprimirCarga(List<Carga> veiculoCarga) {
+	private static void imprimirCarga(List<Carga> veiculoCarga) {
 
 		for(int z = 0; z < veiculoCarga.size(); z++) {
 			System.out.println("Cor: " + veiculoCarga.get(z).getCor());
@@ -376,7 +254,7 @@ public class BDVeiculos {
 
 	}
 
-	public static void excluirPlacaCarga(List<Carga> veiculoCarga, String placa) {
+	private static void excluirPlacaCarga(List<Carga> veiculoCarga, String placa) {
 		boolean existe = false;
 		for(int z = 0; z < veiculoCarga.size(); z++) {
 			if(veiculoCarga.get(z) != null && veiculoCarga.get(z).getPlaca().contains(placa)) {
@@ -388,6 +266,5 @@ public class BDVeiculos {
 		if(existe == false)
 			System.out.println("Placa informada não consta no cadastro.");
 	}
-
 
 }

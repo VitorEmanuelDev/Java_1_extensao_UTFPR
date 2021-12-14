@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-public class BotaoNovoVeiculo implements ActionListener {
+public class BotaoNovoVeiculoPasseio implements ActionListener {
 	
 	private JTextField textField1;
 	private JTextField textField2;
@@ -16,10 +16,8 @@ public class BotaoNovoVeiculo implements ActionListener {
 	private JTextField textField7;
 	private JTextField textField8;
 	private JTextField textField9;
-	private JTextField textFieldExtra;
-	boolean tipo;
 
-	public BotaoNovoVeiculo(boolean tipo, JTextField textField1, JTextField textField2, JTextField textField3, JTextField textField4, JTextField textField5, JTextField textField6, JTextField textField7, JTextField textField8, JTextField textField9, JTextField textFieldExtra) {
+	public BotaoNovoVeiculoPasseio(JTextField textField1, JTextField textField2, JTextField textField3, JTextField textField4, JTextField textField5, JTextField textField6, JTextField textField7, JTextField textField8, JTextField textField9) {
 		this.textField1 = textField1;
 		this.textField2 = textField2;
 		this.textField3 = textField3;
@@ -29,8 +27,7 @@ public class BotaoNovoVeiculo implements ActionListener {
 		this.textField7 = textField7;
 		this.textField8 = textField8;
 		this.textField9 = textField9; 
-		this.textFieldExtra = textFieldExtra; 
-		this.tipo = tipo;
+
 	}
 
 	@Override
@@ -44,8 +41,6 @@ public class BotaoNovoVeiculo implements ActionListener {
 		textField7.setText("100");
 		textField8.setText("16");
 		textField9.setText("3000");	
-		if(tipo == true)
-			textFieldExtra.setText("100");
 		
 	}
 

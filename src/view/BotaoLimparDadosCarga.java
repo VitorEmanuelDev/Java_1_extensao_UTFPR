@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-public class BotaoLimparDados implements ActionListener {
+public class BotaoLimparDadosCarga implements ActionListener {
 	
 	private JTextField textField1;
 	private JTextField textField2;
@@ -16,9 +16,9 @@ public class BotaoLimparDados implements ActionListener {
 	private JTextField textField7;
 	private JTextField textField8;
 	private JTextField textField9;
-	boolean tipo;
+	private JTextField textFieldExtra;
 
-	public BotaoLimparDados(boolean tipo, JTextField textField1, JTextField textField2, JTextField textField3, JTextField textField4, JTextField textField5, JTextField textField6, JTextField textField7, JTextField textField8, JTextField textField9, JTextField textFieldExtra) {
+	public BotaoLimparDadosCarga(JTextField textField1, JTextField textField2, JTextField textField3, JTextField textField4, JTextField textField5, JTextField textField6, JTextField textField7, JTextField textField8, JTextField textField9, JTextField textFieldExtra) {
 		this.textField1 = textField1;
 		this.textField2 = textField2;
 		this.textField3 = textField3;
@@ -28,7 +28,7 @@ public class BotaoLimparDados implements ActionListener {
 		this.textField7 = textField7;
 		this.textField8 = textField8;
 		this.textField9 = textField9;
-		this.tipo = tipo;
+		this.textFieldExtra = textFieldExtra;
 	}
 
 	@Override
@@ -42,6 +42,7 @@ public class BotaoLimparDados implements ActionListener {
 		textField7.setText("");
 		textField8.setText("");
 		textField9.setText("");
+		textFieldExtra.setText("");
 	}
 
 }

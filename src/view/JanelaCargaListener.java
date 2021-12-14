@@ -44,10 +44,9 @@ public class JanelaCargaListener implements ActionListener {
 		rtCod4.setText("Sair");
 		jan1.add(rtCod4);
 		jan1.add(btnSair);
-		boolean tipo = true;
-		btnCadastrar.addActionListener(new BotaoCadastrarListener(tipo));
-		btnConsultarExcluirPlaca.addActionListener(new JanelaConsultarExcluirPlaca(tipo));
-		//btnConsultarExcluirTodos.addActionListener(new BotaoConsultarExcluirTodosListener(tipo));
+		btnCadastrar.addActionListener(new BotaoCadastrarCarga());
+		btnConsultarExcluirPlaca.addActionListener(new JanelaConsultarExcluirPlacaCarga());
+		btnConsultarExcluirTodos.addActionListener(new BotaoConsultarExcluirTodosCarga());
 		btnSair.addActionListener(new BotaoSairListener(jan1));
 		jan1.setLayout(new FlowLayout());
 		jan1.setVisible(true); 	

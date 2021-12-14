@@ -35,20 +35,22 @@ public class BDVeiculos {
 		excluirPlacaPasseio(veiculoPasseio, placa);
 	}
 
-	public static void imprimirVeiculosCargaPlaca(String placa) throws IOException {
-		imprimirPlacaCarga(veiculoCarga, placa);
+	public static Carga imprimirVeiculosCargaPlaca(String placa) throws IOException {
+		Carga cargaDados = imprimirPlacaCarga(veiculoCarga, placa);
+		return cargaDados;
 	}
 
-	public static void imprimirVeiculosPasseioPlaca(String placa) throws IOException {
-		imprimirPlacaPasseio(veiculoPasseio, placa);
+	public static Passeio imprimirVeiculosPasseioPlaca(String placa) throws IOException {
+		Passeio passeioDados = imprimirPlacaPasseio(veiculoPasseio, placa);
+		return passeioDados;
 	}
 
-	public static void imprimirVeiculosCarga() {
-		imprimirCarga(veiculoCarga);
+	public static List<Carga> imprimirVeiculosCarga() {
+		return veiculoCarga;
 	}
 
-	public static void imprimirVeiculosPasseio() {
-		imprimirPasseio(veiculoPasseio);
+	public static List<Passeio> imprimirVeiculosPasseio() {
+		return veiculoPasseio;
 	}
 
 
@@ -165,43 +167,33 @@ public class BDVeiculos {
 		return false;
 	}
 	
-	private static void imprimirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
+	private static Passeio imprimirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
 		boolean existe = false;
+		Passeio passeioDados = new Passeio();
 		for(int z = 0; z < veiculoPasseio.size(); z++) {
 			if(veiculoPasseio.get(z) != null && veiculoPasseio.get(z).getPlaca().contains(placa)) {
 				existe = true;
-				System.out.println("Cor: " + veiculoPasseio.get(z).getCor());
-				System.out.println("Marca: " + veiculoPasseio.get(z).getMarca());
-				System.out.println("Modelo: " + veiculoPasseio.get(z).getModelo());
-				System.out.println("Potencia: " +veiculoPasseio.get(z).getMotor().getPotencia());
-				System.out.println("Pistoes: " + veiculoPasseio.get(z).getMotor().getQtdPist());
-				System.out.println("Placa: " + veiculoPasseio.get(z).getPlaca());
-				System.out.println("Rodas: " + veiculoPasseio.get(z).getQtdRodas());		
-				System.out.println("Velocidade (cm/h): " + veiculoPasseio.get(z).calcVel((veiculoPasseio.get(z).getVelocMax())));
-				System.out.println("\n");
+				passeioDados.setQtdPassageiros(veiculoPasseio.get(z).getQtdPassageiros());
+				passeioDados.setMarca(veiculoPasseio.get(z).getMarca());
+				passeioDados.setModelo(veiculoPasseio.get(z).getModelo());
+				passeioDados.setCor(veiculoPasseio.get(z).getCor());
+				passeioDados.setQtdRodas(veiculoPasseio.get(z).getQtdRodas());
+				passeioDados.setVelocMax(veiculoPasseio.get(z).getVelocMax());
+				passeioDados.setMotor(new Motor());
+				passeioDados.getMotor().setQtdPist(veiculoPasseio.get(z).getMotor().getQtdPist());
+				passeioDados.getMotor().setPotencia(veiculoPasseio.get(z).getMotor().getPotencia());
 			}
 		}
 
 		if(existe == false)
 			System.out.println("Placa informada não consta no cadastro.");
-
+		
+		return passeioDados;
+		
 	}
+	
 
-	private static void imprimirPasseio(List<Passeio> veiculoPasseio) {
-		for(int z = 0; z < veiculoPasseio.size(); z++) {
-			System.out.println("Cor: " + veiculoPasseio.get(z).getCor());
-			System.out.println("Marca: " + veiculoPasseio.get(z).getMarca());
-			System.out.println("Modelo: " + veiculoPasseio.get(z).getModelo());
-			System.out.println("Potencia: " + veiculoPasseio.get(z).getMotor().getPotencia());
-			System.out.println("Pistoes: " + veiculoPasseio.get(z).getMotor().getQtdPist());
-			System.out.println("Placa: " + veiculoPasseio.get(z).getPlaca());
-			System.out.println("Rodas: " + veiculoPasseio.get(z).getQtdRodas());
-			System.out.println("Velocidade (cm/h): " + veiculoPasseio.get(z).calcVel((veiculoPasseio.get(z).getVelocMax())));
-			System.out.println("\n");
-		}
-	}
-
-	private static void excluirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
+	public static void excluirPlacaPasseio(List<Passeio> veiculoPasseio, String placa) {
 		boolean existe = false;
 		for(int z = 0; z < veiculoPasseio.size(); z++) {
 			if(veiculoPasseio.get(z) != null && veiculoPasseio.get(z).getPlaca().contains(placa)) {
@@ -215,42 +207,30 @@ public class BDVeiculos {
 	}
 	
 
-	private static void imprimirPlacaCarga(List<Carga> veiculoCarga, String placa) {
+	private static Carga imprimirPlacaCarga(List<Carga> veiculoCarga, String placa) {
 
 		boolean existe = false;
+		Carga cargaDados = new Carga();
 		for(int z = 0; z < veiculoCarga.size(); z++) {
 			if(veiculoCarga.get(z) != null && veiculoCarga.get(z).getPlaca().contains(placa)) {
 				existe = true;
-				System.out.println("Cor: " + veiculoCarga.get(z).getCor());
-				System.out.println("Marca: " + veiculoCarga.get(z).getMarca());
-				System.out.println("Modelo: " + veiculoCarga.get(z).getModelo());
-				System.out.println("Potencia: " +veiculoCarga.get(z).getMotor().getPotencia());
-				System.out.println("Pistoes: " + veiculoCarga.get(z).getMotor().getQtdPist());
-				System.out.println("Placa: " + veiculoCarga.get(z).getPlaca());
-				System.out.println("Rodas: " + veiculoCarga.get(z).getQtdRodas());		
-				System.out.println("Velocidade (cm/h): " + veiculoCarga.get(z).calcVel((veiculoCarga.get(z).getVelocMax())));
-				System.out.println("\n");
+				cargaDados.setCor(veiculoCarga.get(z).getCor());
+				cargaDados.setMarca(veiculoCarga.get(z).getMarca());
+				cargaDados.setModelo(veiculoCarga.get(z).getModelo());
+				cargaDados.setMotor(new Motor());
+				cargaDados.getMotor().setPotencia(veiculoCarga.get(z).getMotor().getPotencia());
+				cargaDados.getMotor().setQtdPist(veiculoCarga.get(z).getMotor().getQtdPist());
+				cargaDados.setPlaca(veiculoCarga.get(z).getPlaca());
+				cargaDados.setQtdRodas(veiculoCarga.get(z).getQtdRodas());		
+				cargaDados.setCargaMax(veiculoCarga.get(z).getCargaMax());
+				cargaDados.setTara(veiculoCarga.get(z).getTara());
 			}
 		}
 
 		if(existe == false)
 			System.out.println("Placa informada não consta no cadastro.");
-
-	}
-
-	private static void imprimirCarga(List<Carga> veiculoCarga) {
-
-		for(int z = 0; z < veiculoCarga.size(); z++) {
-			System.out.println("Cor: " + veiculoCarga.get(z).getCor());
-			System.out.println("Marca: " + veiculoCarga.get(z).getMarca());
-			System.out.println("Modelo: " + veiculoCarga.get(z).getModelo());
-			System.out.println("Potencia: " + veiculoCarga.get(z).getMotor().getPotencia());
-			System.out.println("Pistoes: " + veiculoCarga.get(z).getMotor().getQtdPist());
-			System.out.println("Placa: " + veiculoCarga.get(z).getPlaca());
-			System.out.println("Rodas: " + veiculoCarga.get(z).getQtdRodas());
-			System.out.println("Velocidade (cm/h): " + veiculoCarga.get(z).calcVel((veiculoCarga.get(z).getVelocMax())));
-			System.out.println("\n");
-		}
+		
+		return cargaDados;
 
 	}
 
